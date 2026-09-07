@@ -4,12 +4,9 @@ A collection of R scripts exploring key topics and activities in nonparametric s
 
 ---
 
-## 📊 Normality Assessment
+## TOPIC 1: NORMALITY
 
-### Description
-This module covers numerical and graphical methods to assess whether a dataset follows a normal distribution, using 40 observations of Systolic Blood Pressure (SBP) as a sample dataset.
-
-📁 **Script:** [`NORMALITY/NORMALITY.R`](file:///Users/jouleused/Desktop/NON-PARAMETRIC-STATISTICS-/NORMALITY/NORMALITY.R)
+This covers numerical and graphical methods to assess whether a dataset follows a normal distribution, using 40 observations of Systolic Blood Pressure (SBP) as a sample dataset.
 
 ### Components
 1. **Numerical Statistics**: Calculates sample size (\(N\)), central tendency (mean, median), measures of dispersion (SD, min, max), and shape parameters (skewness and kurtosis).

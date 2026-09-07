@@ -175,4 +175,59 @@ cat("Total Expected (Sum Ei):      ", total_ei, "\n")
 cat("Chi-Square Test Statistic (X2):", round(total_chi2, 5), "\n")
 
 
+# ==============================================================================
+# SECTION 6: CHI-SQUARE GOODNESS-OF-FIT TEST (COMBINED CLASSES)
+# ==============================================================================
 
+# Combining classes to satisfy minimum expected frequency requirements:
+# Bin 1: < 120 and 121 - 130 combined (Oi = 2 + 8 = 10)
+# Bin 2: 131 - 140                    (Oi = 10)
+# Bin 3: 141 - 150                    (Oi = 10)
+# Bin 4: 151 - 160 and > 160 combined (Oi = 8 + 2 = 10)
+
+sbp_intervals_comb <- c("< 120 / 121 - 130", "131 - 140", "141 - 150", "151 - 160 / > 160")
+
+# 1. Observed Frequencies (Oi) combined dynamically from dataset
+oi_comb <- c(
+  sum(sbp <= 130.5),
+  sum(sbp >= 130.5 & sbp <= 140.5),
+  sum(sbp >= 140.5 & sbp <= 150.5),
+  sum(sbp >= 150.5)
+)
+
+# 2. Probabilities (Pi) computed dynamically for combined bins
+p_comb1 <- p1 + p2  # 0.0582 + 0.1537 = 0.2119
+p_comb2 <- p3       # 0.2721
+p_comb3 <- p4       # 0.2833
+p_comb4 <- p5 + p6  # 0.1646 + 0.0681 = 0.2327
+
+pi_comb <- round(c(p_comb1, p_comb2, p_comb3, p_comb4), 4)
+
+# 3. Expected Frequencies (Ei = N * Pi) computed from scratch
+ei_comb <- round(n_obs * pi_comb, 3)
+
+# 4. Chi-Square Components: (Oi - Ei)^2 / Ei computed from scratch
+chi_components_comb <- round(((oi_comb - ei_comb)^2) / ei_comb, 5)
+
+# Constructing the Combined Chi-Square Table:
+chi_table_comb <- data.frame(
+  SBP_INTERVAL   = sbp_intervals_comb,
+  OBSERVED_Oi    = oi_comb,
+  PROBABILITY_Pi = pi_comb,
+  EXPECTED_Ei    = ei_comb,
+  CHI_COMPONENT  = chi_components_comb
+)
+
+# Totals for Combined Table:
+total_oi_comb   <- sum(oi_comb)
+total_pi_comb   <- sum(pi_comb)
+total_ei_comb   <- sum(ei_comb)
+total_chi2_comb <- sum(chi_components_comb)
+
+cat("\n--- Chi-Square Goodness-of-Fit Test Table (Combined Classes) ---\n")
+print(chi_table_comb, row.names = FALSE)
+
+cat("\nTotal Observed (N):           ", total_oi_comb, "\n")
+cat("Total Probability (Sum Pi):   ", total_pi_comb, "\n")
+cat("Total Expected (Sum Ei):      ", total_ei_comb, "\n")
+cat("Chi-Square Test Statistic (X2):", round(total_chi2_comb, 5), "\n")
